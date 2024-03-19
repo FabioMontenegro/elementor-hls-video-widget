@@ -5,39 +5,48 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Core\DynamicTags\Tag;
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
+// Prevent direct access to this file
+if (!defined('ABSPATH')) exit;
 
+// Video widget class definition
 class Video extends Widget_Base
 {
-    private static $videoCount = 1;
+    private static $videoCount = 1; // Static variable to track the number of videos
 
+    // Method to retrieve the widget name
     public function get_name()
     {
         return 'video-hls';
     }
 
+    // Method to retrieve the widget title
     public function get_title()
     {
         return 'Video HLS';
     }
 
+    // Method to retrieve the widget icon
     public function get_icon()
     {
         return 'eicon-cloud-check';
     }
 
+    // Method to specify the widget group
     public function get_group()
     {
         return ['actions'];
     }
 
+    // Method to specify the widget categories
     public function get_categories()
     {
         return ['general'];
     }
 
+    // Method to register controls (inputs) for the widget
     protected function register_controls()
     {
+        // Section for widget settings
         $this->start_controls_section(
             'section_content',
             [
@@ -45,22 +54,24 @@ class Video extends Widget_Base
             ]
         );
 
+        // Control for video title
         $this->add_control(
             'label_heading',
             [
-                'label' => 'Titulo',
+                'label' => 'Title',
                 'type' => Controls_Manager::TEXT,
-                'default' => 'Titulo de ejemplo',
+                'default' => 'Example Title',
                 'dynamic' => [
                     'active' => true,
                 ],
             ]
         );
 
+        // Control for video URL
         $this->add_control(
             'video_url',
             [
-                'label' => 'URL Video m3u8',
+                'label' => 'Video URL (m3u8)',
                 'type' => Controls_Manager::TEXT,
                 'default' => 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
                 'dynamic' => [
@@ -69,12 +80,13 @@ class Video extends Widget_Base
             ]
         );
 
+        // Control for video content
         $this->add_control(
             'content',
             [
-                'label' => 'Contenido',
+                'label' => 'Content',
                 'type' => Controls_Manager::WYSIWYG,
-                'default' => 'Agregue una descripción al video aquí.',
+                'default' => 'Add video description here.',
                 'dynamic' => [
                     'active' => true,
                 ],
@@ -83,6 +95,7 @@ class Video extends Widget_Base
 
         $this->end_controls_section();
         
+        // Section for title style controls
         $this->start_controls_section(
             'section_style_title',
             [
@@ -91,7 +104,7 @@ class Video extends Widget_Base
             ]
         );
         
-        // Title Font Control
+        // Control for title font
         $this->add_control(
             'title_font',
             [
@@ -103,7 +116,7 @@ class Video extends Widget_Base
             ]
         );
         
-        // Title Color Control
+        // Control for title color
         $this->add_control(
             'title_color',
             [
@@ -117,6 +130,7 @@ class Video extends Widget_Base
         
         $this->end_controls_section();
         
+        // Section for description style controls
         $this->start_controls_section(
             'section_style_textarea',
             [
@@ -125,7 +139,7 @@ class Video extends Widget_Base
             ]
         );
         
-        // Textarea Font Control
+        // Control for description font
         $this->add_control(
             'textarea_font',
             [
@@ -137,7 +151,7 @@ class Video extends Widget_Base
             ]
         );
         
-        // Textarea Color Control
+        // Control for description color
         $this->add_control(
             'textarea_color',
             [
@@ -152,6 +166,7 @@ class Video extends Widget_Base
         $this->end_controls_section();
     }
 
+    // Method to render the widget output
     protected function render() {
         $settings = $this->get_settings_for_display();
         $videoId = 'video-' . self::$videoCount;
@@ -180,16 +195,16 @@ class Video extends Widget_Base
                             if (data.fatal) {
                                 switch (data.type) {
                                     case Hls.ErrorTypes.NETWORK_ERROR:
-                                        console.error("Error de red al cargar el video");
+                                        console.error("Network error while loading the video");
                                         break;
                                     default:
-                                        console.error("Error al cargar el video: ", data.type);
+                                        console.error("Error loading the video: ", data.type);
                                         break;
                                 }
                             }
                         });
                     } else {
-                        console.error("Tu navegador no soporta HLS");
+                        console.error("Your browser does not support HLS");
                     }
                 </script>
             </div>
@@ -197,6 +212,7 @@ class Video extends Widget_Base
         <?php
     }
     
+    // Method to define the structure of the widget in the editor
     protected function _content_template() {
         ?>
         <div class="video">
@@ -207,6 +223,5 @@ class Video extends Widget_Base
         </div>
         <?php
     }
-    
 }
 ?>
