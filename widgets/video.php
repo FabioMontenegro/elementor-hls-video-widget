@@ -13,17 +13,17 @@ class Video extends Widget_Base
 
     public function get_name()
     {
-        return 'video';
+        return 'video-hls';
     }
 
     public function get_title()
     {
-        return 'Video';
+        return 'Video HLS';
     }
 
     public function get_icon()
     {
-        return 'eicon-code';
+        return 'eicon-cloud-check';
     }
 
     public function get_group()
